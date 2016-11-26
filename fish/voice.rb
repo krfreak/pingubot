@@ -15,14 +15,14 @@ module Bot
 
         # The `voice_connect` method does everything necessary for the bot to connect to a voice channel. Afterwards the bot
         # will be connected and ready to play stuff back.
-        bot.voice_connect(channel)
+        BOT.voice_connect(channel)
         nil
       end
 
       command(:vcdc, help_available: false) do |event|
         break unless event.user.id == CFG['owner_id']
         voice_bot = event.voice
-        bot.voice_destroy(event.server.id, false)
+        BOT.voice_destroy(event.server.id, false)
         nil
       end
 

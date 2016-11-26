@@ -36,7 +36,6 @@ module Bot
         else
           'Sorry, got nothing on that.'
         end
-        nil
       end
 
       command :ca, description: "Get a random art with Chloe" do

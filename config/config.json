@@ -1,0 +1,6 @@
+{
+  "token" : YOUR BOT TOKEN,
+  "app_id" : YOUR BOT'S APP ID,
+  "owner_id" : YOUR ID,
+  "prefix" : "||"
+}

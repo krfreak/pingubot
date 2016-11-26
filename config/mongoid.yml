@@ -1,0 +1,12 @@
+development:
+  clients:
+    default:
+      database: pingubot
+      hosts:
+        - localhost:27017
+production:
+ sessions:
+  default:
+   database: pingubot
+   hosts:
+    - localhost:27017

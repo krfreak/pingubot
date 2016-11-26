@@ -1,0 +1,12 @@
+# gemfile and bundler stuff
+/.bundle
+Gemfile.lock
+
+# secret files
+config/config.json
+*.dca
+*.json
+
+# database dump
+dump/
+obj/

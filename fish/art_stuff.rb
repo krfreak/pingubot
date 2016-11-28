@@ -85,6 +85,5 @@ def parse_input(input)
 end
 
 def random_text(art)
-  p art
   "Random #{art[:args]} art (#{art[:count]} results): " << (art[:art].tags.include?("nsfw") ? "[NSFW] <#{art[:art].link}>" : "#{art[:art].link}")
 end

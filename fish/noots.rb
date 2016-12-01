@@ -4,11 +4,11 @@ module Bot
       extend Discordrb::Commands::CommandContainer
       puts 'Noots loaded'
 
-      command(:highnoot) do |event|
+      command :highnoot do
         "It's high noot! https://pbs.twimg.com/profile_images/736904129222705152/_1_3XzoR.jpg"
       end
 
-      command(:noot) { |event| 'Noot noot!' }
+      command(:noot) { 'Noot noot!' }
 
       command :noots do |event|
         break if event.message.mentions.blank?

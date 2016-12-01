@@ -8,7 +8,9 @@ module Bot
         "It's high noot! https://pbs.twimg.com/profile_images/736904129222705152/_1_3XzoR.jpg"
       end
 
-      command(:noot) { 'Noot noot!' }
+      command :noot do
+        'Noot noot!'
+        }
 
       command :noots do |event|
         break if event.message.mentions.blank?

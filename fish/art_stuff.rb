@@ -5,36 +5,31 @@ module Bot
       puts 'Art loaded'
 
       command :art, description: "Get a randomly chosen artwork that contains <tag1>\n Usage: !!art <tag1> <-tag2>\n- excludes that tag from the request" do |event, *args|
-        result = get_art parse_input args
-        if !result.nil?
-          random_text result
-        else
-          'Sorry, got nothing on that.'
-        end
+        output args, event
       end
 
-      command :ca, description: "Get a random art with Chloe" do
-        output "chloe"
+      command :ca, description: "Get a random art with Chloe" do |event|
+        output "chloe", event
       end
 
-      command :pfa, description: "Get a random art with Pricefield" do
-        output "pricefield"
+      command :pfa, description: "Get a random art with Pricefield" do |event|
+        output "pricefield", event
       end
 
-      command :arrt, description: "Get a random art with pirates" do
-        output "pirates"
+      command :arrt, description: "Get a random art with pirates" do |event|
+        output "pirates", event
       end
 
-      command :ka, description: "Get a random art with Kate" do
-        output "kate"
+      command :ka, description: "Get a random art with Kate" do |event|
+        output "kate", event
       end
 
-      command :cua, description: "Get a random cute art" do
-        output "cute"
+      command :cua, description: "Get a random cute art" do |event|
+        output "cute", event
       end
 
-      command :ra, description: "Get a random art with Rachel" do
-        output "rachel"
+      command :ra, description: "Get a random art with Rachel" do |event|
+        output "rachel", event
       end
 
     end
@@ -51,15 +46,38 @@ class Art
   field :last_use,  type: DateTime
 end
 
-def output(tags)
-  tags = [] << tags unless tags.kind_of?(Array)
-  random_text get_art parse_input tags
+def output(args, event=nil)
+  args = [] << args unless args.kind_of?(Array)
+  result = get_art parse_input args
+  if !result.nil?
+    begin
+      raise Discordrb::Errors::NoPermission if event.nil?
+      event.channel.send_embed do |embed|
+        embed.title = "Artist page"
+        embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "Random #{result[:args]} art")
+        embed.colour = 0x14506f
+        if result[:art].tags.include?("nsfw")
+          embed.description = "**[NSFW]**"
+        else
+          embed.image = Discordrb::Webhooks::EmbedImage.new(url: "#{result[:art].preview}")
+        end
+        embed.url = "#{result[:art].source}"
+        embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "#{result[:art].tags.include?("nsfw") ? "**[NSFW]**, " : ""}#{result[:count]} results")
+        embed.add_field(name: "Tags:", value: "```#{result[:art].tags.reject(&:empty?).join(', ')}```")
+      end
+    rescue Discordrb::Errors::NoPermission
+      random_text result
+    end
+  else
+    'Sorry, got nothing on that.'
+  end
 end
 
 def get_art(tags)
   art = tags[:inc].blank? ? Art.where(tags: { '$nin' => tags[:exc]}) : Art.where(tags: { '$all' => tags[:inc] }).and(tags: { '$nin' => tags[:exc] })
   count = art.count
-  art = art.order_by(last_use: :desc).last
+  art = art.order_by(last_use: :desc)
+  art = count>11 ? art[(count-(count*0.1).ceil)..-1].sample : art.last
   if art.present?
     art.update(:last_use => DateTime.now)
     {:art => art, :args => tags[:raw_input], :count => count}

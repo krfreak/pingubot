@@ -14,23 +14,27 @@ module Bot
       end
 
       command :ca, description: "Get a random art with Chloe" do
-        random_text get_art parse_input ["chloe"]
+        output "chloe"
       end
 
       command :pfa, description: "Get a random art with Pricefield" do
-        random_text get_art parse_input ["pricefield"]
+        output "pricefield"
+      end
+
+      command :arrt, description: "Get a random art with pirates" do
+        output "pirates"
       end
 
       command :ka, description: "Get a random art with Kate" do
-        random_text get_art parse_input ["kate"]
+        output "kate"
       end
 
       command :cua, description: "Get a random cute art" do
-        random_text get_art parse_input ["cute"]
+        output "cute"
       end
 
       command :ra, description: "Get a random art with Rachel" do
-        random_text get_art parse_input ["rachel"]
+        output "rachel"
       end
 
     end
@@ -45,6 +49,11 @@ class Art
   field :preview,   type: String
   field :source,    type: String
   field :last_use,  type: DateTime
+end
+
+def output(tags)
+  tags = [] << tags unless tags.kind_of?(Array)
+  random_text get_art parse_input tags
 end
 
 def get_art(tags)

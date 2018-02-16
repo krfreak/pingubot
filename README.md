@@ -10,3 +10,7 @@ Based on meew0's [discordrb](https://github.com/meew0/discordrb) and z64's modul
 
 ## Additional fish
 [pingubot-fish](https://github.com/krfreak/pingubot-fish)
+
+## Contribution
+Feel free to create a pull request if you want to add stuff to Pingubot. 
+If you want to add fish, check the other repository above.

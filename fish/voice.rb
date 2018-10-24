@@ -26,16 +26,6 @@ module Bot
         nil
       end
 
-      command(:vcnoot, help_available: false) do |event|
-        break unless event.user.id == CFG['owner_id']
-        voice_bot = event.voice
-
-        # Since the DCA format is non-standard (i.e. ffmpeg doesn't support it), a separate method other than `play_file` has
-        # to be used to play DCA files back. `play_dca` fulfills that role.
-        voice_bot.play_dca('noot.dca')
-        nil
-      end
-
       command(:vcwol, help_available: false) do |event|
         break unless event.user.id == CFG['owner_id']
         voice_bot = event.voice

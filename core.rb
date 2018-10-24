@@ -36,7 +36,7 @@ module Bot
   BOT.command(:exit, help_available: false) do |event|
     break unless event.user.id == CFG['owner_id'] # Replace number with your ID
 
-    BOT.send_message(event.channel.id, 'Nooting down.')
+    BOT.send_message(event.channel.id, 'Shutting down.')
     exit
   end
 

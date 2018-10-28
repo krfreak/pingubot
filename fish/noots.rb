@@ -58,6 +58,14 @@ module Bot
       command :butt do
         "http://i.giphy.com/iDPv54rvXkkA8.gif"
       end
+      
+      command :policenoot do
+        "Noot noot, that's the sound of the police! <https://www.youtube.com/watch?v=8KiPNxEArAg>"
+      end
+      
+      command :nootstorm do
+        "NOOT NOOT NOOT <https://www.youtube.com/watch?v=H0IlJc_vkZ0> NOOT NOOT NOOT"
+      end
     end
   end
 end
